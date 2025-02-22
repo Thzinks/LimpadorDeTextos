@@ -1,9 +1,8 @@
 # LimpadorDeTextos
-
-Renomeador de Arquivos Automático  
-Um programa que renomeia arquivos automaticamente com numeração sequencial.  
+  
+Um programa que remove quebras de linhas e espaços indesejados de textos
 
 ##  Funcionalidades  
-- Renomeia arquivos com um nome padrão e numeração sequencial  
-- Suporte a múltiplos formatos de arquivo  
-- Evita nomes duplicados  
+- Limpa Textos  
+- Converte texto para letras maiúsculas  
+- Converte texto para letras minúsculas
