@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Limpador de Texto</title>
+</head>
+<style>
+    body {
+        background: linear-gradient(135deg, #2a0e31, #6d35a7);
+        color:white;
+        font-family: Arial, Helvetica, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+        transition: background 0.3s ease, color 0.3s ease;
+    }
+    .light-mode {
+        background: #f0f0f0;
+        color: #000;
+    }
+
+    .dark-mode {
+        background-color: #121212;
+        color: #ffffff;
+    }
+    .container {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        text-align: center;
+        width: 90%;
+        max-width: 500px;
+    }
+    textarea {
+        width: 80%;
+        height: 150px;
+        margin-bottom: 10px 0pX;
+        padding: 10px;
+        border-radius: 10px;
+        border: none;
+        background-color: rgba(255, 255, 255, 0.2);
+        color: white;
+        resize: none;
+        font-size: 16px;
+    }
+    button {
+        background: linear-gradient(90deg, #7a42f4, #a86dfc);
+        border: none;
+        padding: 5px 15px;
+        color: white;
+        font-size: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    button:hover{
+        box-shadow: 0 0 10px rgba(122, 66, 244, 0.8);
+    }
+
+    #output {
+        width: 80%;
+        height: 100px;
+        margin-top: 10px;
+        padding: 10px;
+        background: white;
+        color: black;
+        border-radius: 10px;
+        overflow: auto;
+    }
+
+
+    .dark-mode .toggle-switch .toggle {
+        transform: translateX(25px);
+    }
+
+    .output {
+        margin-top: 10px;
+        padding: 10px;
+        background: rgba(255, 255, 255, 0.2);
+        min-height: 50px;
+    }
+
+    .toggle-button {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background: #333;
+        color: #fff;
+        border: none;
+        border-radius: 20px;
+        width: 50px;
+        height: 25px;
+        cursor: pointer;
+    }
+
+    .dark-mode .toggle-button {
+        background: #fff;
+        color: #333;
+    }
+
+    /*bg elipse*/
+    .background-elipses {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        overflow: hidden;
+    }
+
+    .ellipse {
+        position: absolute;
+        background: radial-gradient(circle, rgba(178, 20, 206, 0.3), rgba(122, 66, 244, 0.1));
+        border-radius: 50%;
+        filter: blur(30px);
+        animation: float 1s infinite ease-in-out;
+    }
+
+    .ellipse:nth-child(1) {
+        width: 300px;
+        height: 300px;
+        top: 10%;
+        left: 5%;
+        animation-duration: 15s;
+    }
+
+    .ellipse:nth-child(3) {
+        width: 250px;
+        height: 250px;
+        top: 80%;
+        left: 20%;
+        animation-duration: 25s;
+    }
+
+    .ellipse:nth-child(4) {
+        width: 340px;
+        height: 350px;
+        top: 30%;
+        left: 50%;
+        animation-duration: 18s;
+    }
+
+    /*Animação das elipses */
+    @keyframes float {
+        0% {
+            transform: translateY(0) translateX(0);
+        }
+        50% {
+            transform: translateY(-20px) translateX(20px);
+        }
+        100% {
+            transform: translateY(0) translateX(0);
+        }
+    }
+
+</style>
+<body>
+    <div>
+        <div class="toggle-switch">
+            <button id="darkModeToggle" class="toggle-button" onclick="toggleDarkMode()">🌙</button>
+            <div class="toggle"></div>
+    </div>
+    <div class="background-elipses">
+        <div class="ellipse"></div>
+        <div class="ellipse"></div>
+        <div class="ellipse"></div>
+        <div class="ellipse"></div>
+    </div>
+    <div class="container">
+        <h2>Limpador de texto</h2>
+        <textarea id="inputText" placeholder=" Cole seu texto aqui..."></textarea>
+        <br>
+        <button onclick="cleanText()">Limpar Texto</button>
+        <button onclick="toUpperCase()">Converter para MAIÚSCULAS</button>
+        <button onclick="toLowerCase()">Converter para munúsculas</button>
+        <br>
+        <div class="ooutput" id="outputText"></div>
+    </div>
+    <script>
+        function cleanText(){
+            let input =  document.getElementById("inputText").value;
+            let cleanedText = input.replace(/\n+/g, ' ').replace(/\s+/g, ' ').trim();
+            document.getElementById("outputText").innerText = cleanedText;
+
+        }
+        function toUpperCase() {
+            let text = document.getElementById("outputText").innerText;
+            document.getElementById("outputText").innerText = text.toUpperCase();
+        }
+        function toLowerCase() {
+            let text = document.getElementById("outputText").innerText;
+            document.getElementById("outputText").innerText = text.toLowerCase();
+        }
+        
+        function toggleDarkMode() {
+            const body = document.body;
+            const toggleButton = document.getElementById("darkModeToggle");
+
+            body.classList.toggle("dark-mode");
+            body.classList.toggle("light-mode");
+
+            if (body.classList.contains("dark-mode")) {
+                localStorage.setItem("darkMode", "eneble");
+                toggleButton.textContent = "☀️";
+            } else {
+                localStorage.setItem("darkMode", "disable")
+                toggleButton.textContent = "🌙";
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+    const body = document.body;
+    const toggleButton = document.getElementById("darkModeToggle");
+
+    if (localStorage.getItem("darkMode") === "enabled") {
+        body.classList.add("dark-mode");
+        toggleButton.textContent = "☀️";
+    } else {
+        body.classList.add("light-mode");
+        toggleButton.textContent = "🌙";
+        }
+    });
+    </script>
+</body>
+</html>
